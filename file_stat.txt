@@ -1,0 +1,5 @@
+Number of characters = 62
+Number of vowels = 23
+Number of consonants = 39
+Number of digits = 4
+Number of lines = 0
