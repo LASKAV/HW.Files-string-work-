@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
@@ -124,7 +124,11 @@ int main()
     std::ofstream file;
     file.open("file_stat.txt");
     if (file.is_open()) {
-       
+       file 
+           << num_str << std::endl
+           << num_vowels_and_consonants << std::endl
+           << num_num << std::endl
+           << next_line << std::endl;
     }
     
     std::cout << std::endl;
