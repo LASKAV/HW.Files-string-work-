@@ -13,19 +13,19 @@
 
 const int BUFF = 100;
 
-
-void num_str(char* num_s)  // ■■ Количество символов
+int num_str(char* num_s)  // ■■ Количество символов
 {
     std::cout << "Number of characters = " << strlen(num_s) << std::endl;
-    
+    int rezalt = strlen(num_s);
+    return rezalt;
 }
 
-void num_vowels_and_consonants(char* num_s)  // ■■ Количество гласных и согласных
+int num_vowels_and_consonants(char* num_s)  // ■■ Количество гласных и согласных
 {
     int rezalt = strlen(num_s);
     int iter1 = 0;
     int iter2 = 0;
-    for (size_t i = 0; i < rezalt; i++)  
+    for (size_t i = 0; i < rezalt; i++)
     {
         if (num_s[i] == 'a' || num_s[i] == 'e' || num_s[i] == 'i' ||
             num_s[i] == 'o' || num_s[i] == 'u' || num_s[i] == 'y')
@@ -39,9 +39,12 @@ void num_vowels_and_consonants(char* num_s)  // ■■ Количество гл
     }
     std::cout << "Number of vowels = " << iter1 << std::endl;
     std::cout << "Number of consonants = " << iter2 << std::endl;
+    return iter1,'\n',iter2;
 }
 
-void num_num(char* num_s)  // ■■ Количество цифр.
+
+
+int num_num(char* num_s)  // ■■ Количество цифр.
 {
     int rezalt = strlen(num_s);
     int iter = 0;
@@ -57,9 +60,9 @@ void num_num(char* num_s)  // ■■ Количество цифр.
 
     }
     std::cout << "Number of digits = " << iter << std::endl;
- 
+    return iter;
 }
-void next_line(char* num_s)  // ■■ Количество строк;
+int next_line(char* num_s)  // ■■ Количество строк;
 {
     int rezalt = strlen(num_s);
     int iter = 0;
@@ -72,15 +75,16 @@ void next_line(char* num_s)  // ■■ Количество строк;
 
     }
     std::cout << "Number of lines = " << iter << std::endl;
+    return iter;
 }
 
 int main()
-{ 
+{
     // file_main.txt
     // file_stat.txt
 
     FILE* F = fopen("file_main.txt", "rt");  // "rt" - для чтения в текстовом виде с начала файла
-    
+
     if (F == NULL)
     {
         std::cout << "file_main.txt not found" << std::endl;
@@ -102,51 +106,18 @@ int main()
 
     std::cout << std::endl;
 
-    FILE* G = fopen("file_stat.txt", "wt");  // "wt" - для записи в текстовом виде
-
-    if (G == NULL)
-    {
-        std::cout << "file_stat.txt not found" << std::endl;
-        return -2;
-    }
-    std::cout << "file_stat.txt open  " << std::endl;
-
-    
-
-    void (*stat1)(char*) = num_str;   // указатели на функции 
-    void (*stat2)(char*) = num_vowels_and_consonants;
-    void (*stat3)(char*) = num_num;
-    void (*stat4)(char*) = next_line;
-     
-    //fwrite(&stat1, sizeof(char), 1, G);
-    //fflush(G);
-
     std::ofstream file;
     file.open("file_stat.txt");
     if (file.is_open()) {
-       file 
-           << num_str << std::endl
-           << num_vowels_and_consonants << std::endl
-           << num_num << std::endl
-           << next_line << std::endl;
+        file
+            << "Number of characters = " << num_str(file_txt) << std::endl
+            << "Number of vowels = " << "\nNumber of consonants = " << num_vowels_and_consonants(file_txt) << std::endl
+            << "Number of digits = " << num_num(file_txt) << std::endl
+            << "Number of lines = "  << next_line(file_txt) << std::endl;
     }
-    
-    std::cout << std::endl;
-
-  
-    std::cout << reinterpret_cast<void*>(num_str) << std::endl
-        << num_vowels_and_consonants << std::endl
-        << num_num << std::endl
-        << next_line << std::endl;
 
     std::cout << std::endl;
-
-    std::cout << *stat1 << std::endl
-        << stat2 << std::endl
-        << stat3 << std::endl
-        << stat4 << std::endl;
-    
     file.close();
     fclose(F);
-    fclose(G);
+   
 }
